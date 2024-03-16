@@ -12,9 +12,9 @@ impl From<&str> for Row {
 }
 
 impl Row {            
-pub fn render(&self, start: usize, end: usize) -> String {            
-        let end = cmp::min(end, self.string.len());            
-        let start = cmp::min(start, end);            
-        self.string.get(start..end).unwrap_or_default().to_string()                    
-    }            
+pub fn render(&self, start: usize, end: usize) -> String {            // normailizes bogus inputs as well as returns biggest possbile substr
+        let end = cmp::min(end, self.string.len());
+        let start = cmp::min(start, end);  
+        self.string.get(start..end).unwrap_or_default().to_string()    
+    }
 }

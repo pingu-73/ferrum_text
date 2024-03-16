@@ -1,8 +1,12 @@
+#[allow(unused_imports)]
+use crate::document;
+#[allow(unused_imports)]
 use crate::terminal;
 use crate::Row;
 use crate::Document;
 use crate::Terminal;
 use termion::event::Key;
+use std::env;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -36,11 +40,19 @@ impl Editor {
     }
 
     pub fn default() -> Self {
+        let args: Vec<String> = env::args().collect();
+        let document = if args.len() > 1 {
+            let file_name = &args[1];
+            Document::open(&file_name).unwrap_or_default()
+        } else {
+            Document::default()
+        };
+
         Self{
             should_quit: false,
             terminal: Terminal::default().expect("Failed to initilize terminal"),
             cursor_position: Position::default(),
-            document: Document::open(),
+            document,
         }
     }
 
@@ -105,7 +117,7 @@ impl Editor {
             if let Some(row) = self.document.row(terminal_row as usize)  {
                 self.draw_row(row);
             }
-            else if terminal_row == height / 3 {
+            else if terminal_row == height / 3 && self.document.is_empty() {
                 self.draw_welcome_message();
             }
             else {
