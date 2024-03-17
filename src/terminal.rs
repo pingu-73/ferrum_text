@@ -6,7 +6,7 @@ use::std::io::Write;
 use termion::raw::{IntoRawMode, RawTerminal};
 use termion::input::TermRead;
 use termion::event::Key;
-
+use termion::{color, style};
 
 pub struct Size{
     pub width: u16,
@@ -22,7 +22,7 @@ impl Terminal{
     pub fn default() -> Result<Self, std::io::Error> {
         let size = termion::terminal_size()?;
         Ok(Self {
-            size: Size { width: size.0, height: size.1 },
+            size: Size { width: size.0, height: size.1.saturating_sub(2) },
             _stdout: io::stdout().into_raw_mode()?,
         })
     }
@@ -48,6 +48,22 @@ impl Terminal{
 
     pub fn flush() -> Result<(), std::io::Error> {
         io::stdout().flush()
+    }
+
+    pub fn set_bg_color(color: color::Rgb) {
+        print!("{}{}", style::Invert, color::Bg(color));
+    }
+
+    pub fn reset_bg_color() {
+        print!("{}", style::Reset);
+    }
+
+    pub fn set_fg_color(color: color::Rgb) {
+        print!("{} {}", style::Invert, color::Fg(color));
+    }
+
+    pub fn reset_fg_color() {
+        print!("{}", style::Reset);
     }
 
     pub fn read_key() -> Result<Key, std::io::Error>{

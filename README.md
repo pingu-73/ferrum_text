@@ -4,7 +4,7 @@ Is a text editor built in rust for learning rust. It's rust implementation of [k
 # To-Do:
 - ~~Text viewer~~
 - ~~Scrolling~~
--  Add [Grapheme](https://en.wikipedia.org/wiki/Grapheme) support
+-  ~~Add [Grapheme](https://en.wikipedia.org/wiki/Grapheme) support~~
 - Text Editor
 - Syntax highlighting
 - Search
