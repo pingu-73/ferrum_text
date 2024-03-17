@@ -15,3 +15,5 @@ Is a text editor built in rust for learning rust. It's rust implementation of [k
 - Navigate into the repo.
 - In the terminal enter `cargo run <file_name>` or `cargo run` to run ferrum text.
 - Press `ctrl-q` to exit ferrum text.
+
+<img src="assets/file_open.png"/>
