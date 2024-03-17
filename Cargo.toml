@@ -8,3 +8,4 @@ authors = ["Dikshant <dikshant.073@gmail.com>"]
 
 [dependencies]
 termion = "3"
+unicode-segmentation = "1"
